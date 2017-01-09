@@ -1,5 +1,3 @@
-'use strict';
-
 /*
 - If userInput != SimonArray then I need to either replay it or if strict is applied go back to step one. Have to make sure it compares every value one by one.
 */
@@ -14,28 +12,25 @@ var yellowSound = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound3.m
 var blueSound = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3');
 
 //Buttons
-document.getElementById('green').addEventListener("click", function () {
+document.getElementById('green').addEventListener("click",() => {
   greenSound.play();
-  userInputtedArray.push(1);
+ userInputtedArray.push(1);
 });
-document.getElementById('red').addEventListener("click", function () {
+document.getElementById('red').addEventListener("click", () => {
   redSound.play();
-  userInputtedArray.push(2);
+ userInputtedArray.push(2);
 });
-document.getElementById('yellow').addEventListener("click", function () {
+document.getElementById('yellow').addEventListener("click", () => {
   yellowSound.play();
-  userInputtedArray.push(3);
+ userInputtedArray.push(3);
 });
-document.getElementById('blue').addEventListener("click", function () {
+document.getElementById('blue').addEventListener("click", () => {
   blueSound.play();
-  userInputtedArray.push(4);
+ userInputtedArray.push(4);
 });
 
 //Button Controls, updating/resetting the counter
-function updateCount() {
-  count += 1;
-  document.getElementById('count').innerHTML = count;
-}
+
 function resetCount() {
   count = 0;
   simonArray = [];
@@ -44,27 +39,37 @@ function resetCount() {
 }
 //Game Logic
 
-function initializeGame() {
-
-  for (var i = 0; i <= count; i++) {
+function initializeGame(){
+  if(simonArray.length < 20){
     simonArray.push(Math.floor(Math.random() * 4) + 1);
-    console.log(simonArray);
+    simonsTurn();
+  } else {
+    alert("you win!")
   }
+
 };
+function simonsTurn(){
+  console.log(simonArray);
+  if(simonArray.length < count){
+    
+    setTimeout(simonsTurn, 2000);
+    
+  }
+}
+
 
 //Starting the Game
-document.getElementById('start').addEventListener("click", function () {
-  updateCount();
+document.getElementById('start').addEventListener("click", () => {
   initializeGame();
 });
 //Resetting the Game
-document.getElementById('reset').addEventListener("click", function () {
+document.getElementById('reset').addEventListener("click", () => {
   resetCount();
   strictMode = false;
-  document.getElementById('strict').style.background = "";
+  document.getElementById('strict').style.background = ""
 });
 //Enabling Strict Mode
-document.getElementById('strict').addEventListener("click", function () {
+document.getElementById('strict').addEventListener("click", () => {
   strictMode = true;
   document.getElementById('strict').style.background = "orange";
 });
