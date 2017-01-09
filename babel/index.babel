@@ -30,10 +30,7 @@ document.getElementById('blue').addEventListener("click", () => {
 });
 
 //Button Controls, updating/resetting the counter
-function updateCount(){
-  count += 1;
-  document.getElementById('count').innerHTML = count;
-}
+
 function resetCount() {
   count = 0;
   simonArray = [];
@@ -43,18 +40,26 @@ function resetCount() {
 //Game Logic
 
 function initializeGame(){
-  
-  for(let i=0; i <= count; i++){
+  if(simonArray.length < 20){
     simonArray.push(Math.floor(Math.random() * 4) + 1);
-    console.log(simonArray);
+    simonsTurn();
+  } else {
+    alert("you win!")
   }
-  
+
 };
+function simonsTurn(){
+  console.log(simonArray);
+  if(simonArray.length < count){
+    
+    setTimeout(simonsTurn, 2000);
+    
+  }
+}
 
 
 //Starting the Game
 document.getElementById('start').addEventListener("click", () => {
-  updateCount();
   initializeGame();
 });
 //Resetting the Game
